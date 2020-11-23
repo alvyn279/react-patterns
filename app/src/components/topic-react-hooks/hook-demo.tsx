@@ -1,9 +1,10 @@
 import React from 'react';
+import HookDemo1 from './hook-demo-1';
 
 const HookDemo = () => {
   return (
     <div>
-      Let&apos;s learn about React Hooks
+      <HookDemo1 />
     </div>
   );
 };
