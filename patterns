@@ -9,3 +9,6 @@ Redux:
     Clean Redux setup:
         https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
 
+
+Concurrent mode:
+    https://reactjs.org/docs/concurrent-mode-suspense.html
