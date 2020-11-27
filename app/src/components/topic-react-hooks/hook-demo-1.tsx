@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Input, Row } from 'antd';
+import './hook-demo.css';
 
 const { Search } = Input;
 
@@ -13,7 +14,7 @@ const HookDemo1 = () => {
   return (
     <>
       <h3>Simple Hook</h3>
-      <Row>
+      <Row className={'separator-row'}>
         <Col span={12}>
           <Search
             allowClear
