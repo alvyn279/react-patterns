@@ -5,7 +5,11 @@ Hooks:
     API calls:
         https://www.robinwieruch.de/react-hooks-fetch-data
     Redux:
+        https://react-redux.js.org/api/hooks
         https://rajeshnaroth.medium.com/managing-async-state-with-hooks-and-redux-8ab675ae6bdf
+
+React.memo:
+    https://reactjs.org/docs/react-api.html#reactmemo
 
 Redux:
     Clean Redux setup:
