@@ -1,3 +1,10 @@
 .separator-row {
     padding-bottom: 2rem;
+    max-height: 10rem;
+}
+
+.results {
+    background-color: lightgrey;
+    max-height: inherit;
+    overflow: scroll;
 }

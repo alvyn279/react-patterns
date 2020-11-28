@@ -2,7 +2,7 @@ Hooks:
     Side effects
         https://overreacted.io/a-complete-guide-to-useeffect/
     Typescript
-    API calls:
+    API calls/Data fetching:
         https://www.robinwieruch.de/react-hooks-fetch-data
     Redux:
         https://react-redux.js.org/api/hooks
@@ -14,7 +14,6 @@ React.memo:
 Redux:
     Clean Redux setup:
         https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
-
 
 Concurrent mode:
     https://reactjs.org/docs/concurrent-mode-suspense.html
