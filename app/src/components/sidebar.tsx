@@ -14,7 +14,6 @@ const Sidebar = () => {
       <Menu
         theme={'dark'}
         mode={'inline'}
-        defaultSelectedKeys={['1']}
       >
         <Menu.Item key={'1'}>
           <Link to={'/topic/hooks'}>Hooks</Link>

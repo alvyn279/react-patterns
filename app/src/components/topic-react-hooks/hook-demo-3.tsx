@@ -15,23 +15,42 @@ interface HackerNewsArticle {
   title: string
 }
 
+interface AxiosError {
+  message: string,
+  statusCode: number
+}
+
 const API_URL_WITH_QUERY = 'https://hn.algolia.com/api/v1/search?query=';
 
+// Simplest version of data fetching with React Hooks
 const HookDemo3 = () => {
   const INITIAL_QUERY = 'redux';
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const [query, setQuery] = useState<string>(INITIAL_QUERY);
   const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${INITIAL_QUERY}`);
   const [hits, setHits] = useState<Array<HackerNewsArticle>>([]);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<null | AxiosError>(null);
+
   useEffect(() => {
     const fetchData = async () => {
-      // handle error
       setIsLoading(true);
-      const { data } = await axios.get(url);
+
+      try {
+        const { data } = await axios.get(url);
+        setHits(data.hits);
+        setError(null);
+      } catch (err) {
+        setError({
+          message: err.message,
+          statusCode: err.response?.status,
+        });
+      }
+
       setIsLoading(false);
-      setHits(data.hits);
     };
+
     fetchData();
   }, [url]);
 
@@ -46,7 +65,7 @@ const HookDemo3 = () => {
   return (
     <>
       <Row>
-        <h3>Data fetching with Hooks</h3>
+        <h3>Data fetching with simple Hook</h3>
       </Row>
       <Row className={'separator-row'}>
         <Col span={12}>
@@ -63,6 +82,7 @@ const HookDemo3 = () => {
           span={12}
           className={'results'}
         >
+          {error && (<span>{`${error.statusCode || 'ERR'}: ${error.message}`}</span>)}
           {!isLoading ? (
             <ul>
               {hits
