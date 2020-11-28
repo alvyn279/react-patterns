@@ -2,7 +2,7 @@ import React, {
   ChangeEvent, useEffect, useState,
 } from 'react';
 import {
-  Input, Col, Row,
+  Input, Col, Row, Spin,
 } from 'antd';
 import axios from 'axios';
 import './hook-demo.css';
@@ -19,6 +19,7 @@ const API_URL_WITH_QUERY = 'https://hn.algolia.com/api/v1/search?query=';
 
 const HookDemo3 = () => {
   const INITIAL_QUERY = 'redux';
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>(INITIAL_QUERY);
   const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${INITIAL_QUERY}`);
   const [hits, setHits] = useState<Array<HackerNewsArticle>>([]);
@@ -26,7 +27,9 @@ const HookDemo3 = () => {
   useEffect(() => {
     const fetchData = async () => {
       // handle error
+      setIsLoading(true);
       const { data } = await axios.get(url);
+      setIsLoading(false);
       setHits(data.hits);
     };
     fetchData();
@@ -60,15 +63,17 @@ const HookDemo3 = () => {
           span={12}
           className={'results'}
         >
-          <ul>
-            {hits
-              .filter((item: HackerNewsArticle) => item.title && item.url)
-              .map((item: HackerNewsArticle) => (
-                <li key={item.objectID}>
-                  <a href={item.url}>{item.title}</a>
-                </li>
-              ))}
-          </ul>
+          {!isLoading ? (
+            <ul>
+              {hits
+                .filter((item: HackerNewsArticle) => item.title && item.url)
+                .map((item: HackerNewsArticle) => (
+                  <li key={item.objectID}>
+                    <a href={item.url}>{item.title}</a>
+                  </li>
+                ))}
+            </ul>
+          ) : (<Spin tip={'Searching ...'} />) }
         </Col>
       </Row>
     </>
