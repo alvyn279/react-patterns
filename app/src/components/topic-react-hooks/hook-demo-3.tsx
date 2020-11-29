@@ -28,7 +28,6 @@ const HookDemo3 = () => {
   const [query, setQuery] = useState<string>(INITIAL_QUERY);
   const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${INITIAL_QUERY}`);
   const [hits, setHits] = useState<Array<HackerNewsArticle>>([]);
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | AxiosError>(null);
 
@@ -53,14 +52,6 @@ const HookDemo3 = () => {
     fetchData();
   }, [url]);
 
-  const onQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event?.target?.value);
-  };
-
-  const onSearchChange = () => {
-    setUrl(`${API_URL_WITH_QUERY}${query}`);
-  };
-
   return (
     <>
       <Row>
@@ -72,8 +63,8 @@ const HookDemo3 = () => {
             allowClear
             enterButton
             placeholder={'input search text'}
-            onChange={onQueryChange}
-            onSearch={onSearchChange}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => { setQuery(event?.target?.value); }}
+            onSearch={() => { setUrl(`${API_URL_WITH_QUERY}${query}`); }}
             style={{ width: 200 }}
           />
         </Col>
