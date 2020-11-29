@@ -21,11 +21,10 @@ interface AxiosError {
 }
 
 const API_URL_WITH_QUERY = 'https://hn.algolia.com/api/v1/search?query=';
+const INITIAL_QUERY = 'redux';
 
 // Simplest version of data fetching with React Hooks
 const HookDemo3 = () => {
-  const INITIAL_QUERY = 'redux';
-
   const [query, setQuery] = useState<string>(INITIAL_QUERY);
   const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${INITIAL_QUERY}`);
   const [hits, setHits] = useState<Array<HackerNewsArticle>>([]);
