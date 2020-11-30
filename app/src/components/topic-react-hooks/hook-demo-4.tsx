@@ -31,11 +31,11 @@ const INITIAL_QUERY = 'youtube';
  * HackerNewsAPI Hook. Can take in a generic type that will define the structure
  * of the data received from the API.
  *
- * @param initialQuery Initial string value for the first query to be made
+ * @param initialUrl Initial string string URL value for the API request
  * @param initialData Initial generic API data
  */
-const useHackerNewsApi = <T, >(initialQuery: string, initialData: T) => {
-  const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${initialQuery}`);
+const useHackerNewsApi = <T, >(initialUrl: string, initialData: T) => {
+  const [url, setUrl] = useState<string>(initialUrl);
   const [data, setData] = useState<T>(initialData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | AxiosError>(null);
@@ -68,7 +68,7 @@ const useHackerNewsApi = <T, >(initialQuery: string, initialData: T) => {
 const HookDemo4 = () => {
   const [query, setQuery] = useState<string>(INITIAL_QUERY);
   const [{ data, isLoading, error }, setUrl] = useHackerNewsApi<HackerNewsArticleHits>(
-    INITIAL_QUERY,
+    `${API_URL_WITH_QUERY}${INITIAL_QUERY}`,
     { hits: [] },
   );
 
