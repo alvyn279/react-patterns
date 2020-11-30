@@ -15,29 +15,37 @@ interface HackerNewsArticle {
   title: string
 }
 
+interface HackerNewsArticleHits {
+  hits: Array<HackerNewsArticle>
+}
+
 interface AxiosError {
   message: string,
   statusCode: number
 }
 
 const API_URL_WITH_QUERY = 'https://hn.algolia.com/api/v1/search?query=';
-const INITIAL_QUERY = 'redux';
+const INITIAL_QUERY = 'youtube';
 
-// Simplest version of data fetching with React Hooks
-const HookDemo3 = () => {
-  const [query, setQuery] = useState<string>(INITIAL_QUERY);
-  const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${INITIAL_QUERY}`);
-  const [hits, setHits] = useState<Array<HackerNewsArticle>>([]);
+/**
+ * HackerNewsAPI Hook. Can take in a generic type that will define the structure
+ * of the data received from the API.
+ *
+ * @param initialQuery Initial string value for the first query to be made
+ * @param initialData Initial generic API data
+ */
+const useHackerNewsApi = <T, >(initialQuery: string, initialData: T) => {
+  const [url, setUrl] = useState<string>(`${API_URL_WITH_QUERY}${initialQuery}`);
+  const [data, setData] = useState<T>(initialData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | AxiosError>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
       try {
-        const { data } = await axios.get(url);
-        setHits(data.hits);
+        const response = await axios.get(url);
+        setData(response.data);
         setError(null);
       } catch (err) {
         setError({
@@ -45,22 +53,34 @@ const HookDemo3 = () => {
           statusCode: err.response?.status,
         });
       }
-
       setIsLoading(false);
     };
 
     fetchData();
   }, [url]);
 
+  return [{ data, isLoading, error }, setUrl] as const;
+};
+
+/**
+ * Refactored version of data fetching into a reusable API hook
+ */
+const HookDemo4 = () => {
+  const [query, setQuery] = useState<string>(INITIAL_QUERY);
+  const [{ data, isLoading, error }, setUrl] = useHackerNewsApi<HackerNewsArticleHits>(
+    INITIAL_QUERY,
+    { hits: [] },
+  );
+
   return (
     <>
       <Row>
-        <h3>Data fetching with simple Hook</h3>
+        <h3>Data fetching with custom Hook</h3>
       </Row>
       <Row className={'separator-row'}>
         <Col span={12}>
           <Search
-            id={'data-fetching-hook'}
+            id={'custom-data-fetching-hook'}
             allowClear
             enterButton
             placeholder={'input search text'}
@@ -76,9 +96,9 @@ const HookDemo3 = () => {
           {error && (<span>{`${error.statusCode || 'ERR'}: ${error.message}`}</span>)}
           {!isLoading ? (
             <ul
-              id={'data-fetching-hook-results'}
+              id={'custom-data-fetching-hook-results'}
             >
-              {hits
+              {data.hits
                 .filter((item: HackerNewsArticle) => item.title && item.url)
                 .map((item: HackerNewsArticle) => (
                   <li key={item.objectID}>
@@ -93,4 +113,4 @@ const HookDemo3 = () => {
   );
 };
 
-export default HookDemo3;
+export default HookDemo4;

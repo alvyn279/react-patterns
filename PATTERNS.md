@@ -11,7 +11,8 @@
     * https://rajeshnaroth.medium.com/managing-async-state-with-hooks-and-redux-8ab675ae6bdf
 * `useCallback`/`useMemo`:
     * https://kentcdodds.com/blog/usememo-and-usecallback
-* Typescript
+* Typescript:
+    * https://fettblog.eu/typescript-react-typeing-custom-hooks/
 
 ### React.memo:
 * https://reactjs.org/docs/react-api.html#reactmemo
