@@ -84,7 +84,7 @@ const HookDemo4 = () => {
             allowClear
             enterButton
             placeholder={'input search text'}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => { setQuery(event?.target?.value); }}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => { setQuery(event.target.value); }}
             onSearch={() => { setUrl(`${API_URL_WITH_QUERY}${query}`); }}
             style={{ width: 200 }}
           />
