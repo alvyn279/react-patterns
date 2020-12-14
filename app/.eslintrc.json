@@ -8,7 +8,7 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "extends": ["react-app", "airbnb"],
+  "extends": ["airbnb"],
   "rules": {
     "semi": "error",
     "indent": ["error", 2],
@@ -51,8 +51,7 @@
     "react/static-property-placement": "off",
     "react/prefer-stateless-function": "off",
     "jsx-a11y/anchor-is-valid": "off",
-    "jsx-a11y/control-has-associated-label": "off",
-    "@typescript-eslint/no-use-before-define": ["error"]
+    "jsx-a11y/control-has-associated-label": "off"
   },
   "plugins": ["react"],
   "settings": {
